@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Retorno do Demônio Louco - Ler Online</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container header-flex">
+            <h1 class="logo">Meu Manhwa</h1>
+            <nav class="main-nav">
+                <a href="index.html">Início</a>
+                <a href="#explorar">Explorar</a>
+                <a href="#sobre">Sobre</a>
+                <a href="#contato">Contato</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="tabs-container" style="margin-top:2rem;">
+            <div class="tabs" style="display:flex;gap:2px;">
+                <button class="tab-btn active" data-tab="info" title="Informações" style="display:flex;align-items:center;gap:6px;font-size:1.1rem;padding:10px 18px 10px 14px;">
+                    <span style="font-size:1.3em;">ℹ️</span> <span>Informações</span>
+                </button>
+                <button class="tab-btn" data-tab="capitulos" title="Capítulos" style="display:flex;align-items:center;gap:6px;font-size:1.1rem;padding:10px 18px 10px 14px;">
+                    <span style="font-size:1.3em;">📚</span> <span>Capítulos</span>
+                </button>
+                <button class="tab-btn" data-tab="comentarios" title="Comentários" style="display:flex;align-items:center;gap:6px;font-size:1.1rem;padding:10px 18px 10px 14px;">
+                    <span style="font-size:1.3em;">💬</span> <span>Comentários</span>
+                </button>
+            </div>
+            <div class="tab-content" id="tab-info" style="display:block;">
+                <div class="manhwa-detalhe" style="display:flex;gap:2rem;align-items:flex-start;">
+                    <img class="manhwa-capa" src="https://tse1.mm.bing.net/th/id/OIP.tP4j6rlhmvfsTqh3Wef8AwHaKv?pid=Api&P=0&h=180" alt="O Retorno do Demônio Louco capa" style="width:220px;border-radius:8px;box-shadow:0 2px 12px #0008;">
+                    <div class="manhwa-info">
+                        <h2>O Retorno do Demônio Louco</h2>
+                        <p><strong>Gêneros:</strong> Ação, Artes Marciais, Comédia, Fantasia, Histórico</p>
+                        <p style="max-width:500px;">Jaha Lee, conhecido como o Demônio Louco, sonha em se tornar o Deus das Artes Marciais. Após roubar o Jade do Céu da Seita Demoníaca, ele cai de um penhasco enquanto foge. No entanto, em vez da morte, ele acorda em seu corpo de 20 anos, com todas as memórias intactas. Agora, com conhecimento do futuro e habilidades marciais aprimoradas, Jaha tem uma segunda chance para alcançar seus objetivos e se vingar daqueles que o traíram.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="tab-capitulos" style="display:none;">
+                <section>
+                    <h3>Lista de Capítulos</h3>
+                    <ul class="chapter-list">
+                        <li><a href="#" class="cap-demonio-link">Capítulo 1</a></li>
+                        <li><a href="#">Capítulo 2</a></li>
+                        <li><a href="#">Capítulo 3</a></li>
+                        <!-- Adicione mais capítulos conforme necessário -->
+                    </ul>
+                </section>
+            </div>
+            <div class="tab-content" id="tab-comentarios" style="display:none;">
+                <div id="disqus_thread"></div>
+            </div>
+        </div>
+    </main>
+    <script>
+    // Tabs para Info/Capítulos/Comentários
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                tabContents.forEach(tc => tc.style.display = 'none');
+                document.getElementById('tab-' + this.dataset.tab).style.display = 'block';
+            });
+        });
+        // Exibe imagens do capítulo 1 ao clicar
+        const capDemonioLink = document.querySelector('.cap-demonio-link');
+        if (capDemonioLink) {
+            capDemonioLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                const modal = document.createElement('div');
+                modal.className = 'modal-manhwa';
+                modal.innerHTML = `
+                    <div class=\"modal-bg\"></div>
+                    <div class=\"modal-content\" style=\"max-width:700px; max-height:90vh; overflow-y:auto;\">
+                        <h2 style=\"color:#7dcfff;\">O Retorno do Demônio Louco - Capítulo 1 (PT-BR)</h2>
+                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623080443-1.webp\" alt=\"Página 1\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
+                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623080444-2.webp\" alt=\"Página 2\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
+                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623080445-3.webp\" alt=\"Página 3\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
+                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623081546-4.webp\" alt=\"Página 4\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
+                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623081545-5.webp\" alt=\"Página 5\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
+                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623081547-6.webp\" alt=\"Página 6\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
+                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623083578-7.webp\" alt=\"Página 7\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
+                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623083582-8.webp\" alt=\"Página 8\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
+                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623083581-9.webp\" alt=\"Página 9\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
+                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623085542-10.webp\" alt=\"Página 10\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
+                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623085543-11.webp\" alt=\"Página 11\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
+                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623085541-12.webp\" alt=\"Página 12\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
+                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623088549-13.webp\" alt=\"Página 13\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
+                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623088550-14.webp\" alt=\"Página 14\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
+                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623088548-15.webp\" alt=\"Página 15\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
+                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623092665-16.webp\" alt=\"Página 16\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
+                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623092667-17.webp\" alt=\"Página 17\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
+                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623092666-18.webp\" alt=\"Página 18\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
+                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623097580-19.webp\" alt=\"Página 19\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
+                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623097578-20.webp\" alt=\"Página 20\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
+                        <button class=\"close-modal\">Fechar</button>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                modal.querySelector('.close-modal').onclick = () => modal.remove();
+                modal.querySelector('.modal-bg').onclick = () => modal.remove();
+            });
+        }
+        // Disqus config
+        if (document.getElementById('disqus_thread')) {
+            var disqus_config = function () {
+                this.page.url = window.location.href;
+                this.page.identifier = window.location.pathname;
+            };
+            var d = document, s = d.createElement('script');
+            s.src = 'https://meu-manhwas.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    });
+    </script>
+    <footer>
+        <div class="container footer-flex">
+            <div>
+                <strong>Links Rápidos</strong><br>
+                <a href="index.html">Início</a> |
+                <a href="#explorar">Explorar</a> |
+                <a href="#sobre">Sobre</a> |
+                <a href="#contato">Contato</a>
+            </div>
+            <div>
+                <strong>Redes Sociais</strong><br>
+                <a href="#">Instagram</a> |
+                <a href="#">Facebook</a>
+            </div>
+            <div>
+                © 2025 Meu Manhwa. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
