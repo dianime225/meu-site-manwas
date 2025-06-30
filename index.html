@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Novo Manhwa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container header-flex">
+            <h1 class="logo"><img src="https://tse2.mm.bing.net/th/id/OIP.wTHrGVya9uR_EpCDuBJrfQHaFQ?pid=Api&P=0&h=180" alt="Logo Meu Manhwa" class="logo-img"> Meu Manhwa</h1>
+            <nav class="main-nav">
+                <a href="index.html">Início</a>
+                <a href="#explorar">Explorar</a>
+                <a href="#sobre">Sobre</a>
+                <a href="https://discord.com/" target="_blank">Discord</a>
+            </nav>
+            <div class="fav-header">
+                <button class="fav-btn-header" id="showFavBtn" title="Ver Favoritos">⭐ Favoritos</button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Buscar manhwa..." />
+            <button id="searchBtn">🔍</button>
+        </div>
+        <section>
+            <h2>Categorias</h2>
+            <div class="categories">
+                <button class="category-btn" data-category="todos">Todos</button>
+                <button class="category-btn" data-category="acao">Ação</button>
+                <button class="category-btn" data-category="fantasia">Fantasia</button>
+                <button class="category-btn" data-category="drama">Drama</button>
+                <button class="category-btn" data-category="romance">Romance</button>
+                <button class="category-btn" data-category="comedia">Comédia</button>
+            </div>
+        </section>
+        <section>
+            <h2>Mangás Populares</h2>
+            <div class="grid" id="manhwaGrid">
+                <div class="card" data-category="acao fantasia">
+                    <button class="fav-btn" title="Favoritar" aria-label="Favoritar manhwa">☆ Favoritar</button>
+                    <img src="manhwa1.jpg" alt="Capítulo 1">
+                    <div class="card-info">
+                        <h3><a href="#" class="cap1-link">Capítulo 1</a></h3>
+                        <p class="genero">Ação, Fantasia</p>
+                    </div>
+                </div>
+                <div class="card" data-category="drama romance">
+                    <button class="fav-btn" title="Favoritar" aria-label="Favoritar manhwa">☆ Favoritar</button>
+                    <img src="manhwa2.jpg" alt="Capítulo 2">
+                    <div class="card-info">
+                        <h3>Capítulo 2</h3>
+                        <p class="genero">Drama, Romance</p>
+                    </div>
+                </div>
+                <div class="card" data-category="comedia">
+                    <button class="fav-btn" title="Favoritar" aria-label="Favoritar manhwa">☆ Favoritar</button>
+                    <img src="manhwa3.jpg" alt="Capítulo 3">
+                    <div class="card-info">
+                        <h3>Capítulo 3</h3>
+                        <p class="genero">Comédia</p>
+                    </div>
+                </div>
+                <div class="card" id="soloLevelingCard" data-category="acao fantasia" style="cursor:pointer;">
+                    <button class="fav-btn" title="Favoritar" aria-label="Favoritar manhwa">☆ Favoritar</button>
+                    <img src="https://www.theanimex.com/wp-content/uploads/2022/03/Solo-Leveling-Vol.-4.jpg" alt="Solo Leveling">
+                    <div class="card-info">
+                        <h3><a href="#" class="cap-solo-link">Solo Leveling</a></h3>
+                        <p class="genero">Ação, Fantasia</p>
+                    </div>
+                </div>
+                <div class="card" data-category="acao artes-marciais comedia fantasia historico">
+                    <button class="fav-btn" title="Favoritar" aria-label="Favoritar manhwa">☆ Favoritar</button>
+                    <img src="https://tse1.mm.bing.net/th/id/OIP.tP4j6rlhmvfsTqh3Wef8AwHaKv?pid=Api&P=0&h=180" alt="O Retorno do Demônio Louco" style="width:100%;height:278px;object-fit:cover;">
+                    <div class="card-info">
+                        <h3>O Retorno do Demônio Louco</h3>
+                        <p class="genero">Ação, Artes Marciais, Comédia, Fantasia, Histórico</p>
+                    </div>
+                </div>
+                <div id="soloLevelingChapters" style="display:none; grid-column: 1 / -1;"></div>
+            </div>
+        </section>
+        <section>
+            <h2>Filtro Avançado</h2>
+            <form id="filtroAvancado" class="filtro-avancado">
+                <input type="text" id="filtroNome" placeholder="Nome do manhwa..." />
+                <select id="filtroGenero">
+                    <option value="">Gênero</option>
+                    <option value="acao">Ação</option>
+                    <option value="fantasia">Fantasia</option>
+                    <option value="drama">Drama</option>
+                    <option value="romance">Romance</option>
+                    <option value="comedia">Comédia</option>
+                </select>
+                <select id="filtroStatus">
+                    <option value="">Status</option>
+                    <option value="andamento">Em andamento</option>
+                    <option value="finalizado">Finalizado</option>
+                </select>
+                <select id="filtroOrdem">
+                    <option value="">Ordem</option>
+                    <option value="az">A-Z</option>
+                    <option value="za">Z-A</option>
+                </select>
+                <button type="submit">Filtrar</button>
+                <button type="button" id="limparFiltro">Limpar</button>
+            </form>
+        </section>
+    </main>
+    <div id="disqus_thread"></div>
+    <noscript>Ative o JavaScript para ver os comentários do Disqus.</noscript>
+    <footer>
+        <div class="container footer-flex">
+            <div>
+                <strong>Links Rápidos</strong><br>
+                <a href="index.html">Início</a> |
+                <a href="#explorar">Explorar</a> |
+                <a href="#sobre">Sobre</a> |
+                <a href="https://discord.com/" target="_blank">Discord</a>
+            </div>
+            <div>
+                <strong>Redes Sociais</strong><br>
+                <a href="#">Instagram</a> |
+                <a href="#">Facebook</a>
+            </div>
+            <div>
+                © 2025 Meu Manhwa. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+    <div id="favModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000b;z-index:9999;align-items:center;justify-content:center;">
+        <div style="background:#181818;padding:2rem 1.5rem 1.5rem 1.5rem;border-radius:12px;max-width:90vw;max-height:80vh;overflow-y:auto;box-shadow:0 4px 32px #000c;min-width:300px;">
+            <h2 style="margin-top:0;font-size:1.3em;color:#fff;">⭐ Meus Favoritos</h2>
+            <ul id="favList" style="list-style:none;padding:0;margin:0 0 1rem 0;"></ul>
+            <button id="closeFavModal" style="background:#e74c3c;color:#fff;border:none;padding:8px 18px;border-radius:6px;cursor:pointer;font-size:1em;">Fechar</button>
+        </div>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Disqus na página
+        var disqus_config = function () {
+            this.page.url = window.location.href;
+            this.page.identifier = window.location.pathname;
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://meu-manhwas.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+
+        // Função de favoritos para todos os cards
+        document.querySelectorAll('.fav-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                btn.classList.toggle('favorited');
+                let card = btn.closest('.card');
+                let h3 = card.querySelector('h3');
+                // Corrige para pegar o título SEMPRE igual ao texto visível (remove links e espaços)
+                let title = h3.textContent.replace(/\s+/g, ' ').trim();
+                let favs = JSON.parse(localStorage.getItem('meusFavs') || '[]');
+                if (btn.classList.contains('favorited')) {
+                    if (!favs.includes(title)) favs.push(title);
+                } else {
+                    favs = favs.filter(f => f !== title);
+                }
+                localStorage.setItem('meusFavs', JSON.stringify(favs));
+            });
+        });
+
+        // Botão de mostrar favoritos
+        document.getElementById('showFavBtn').addEventListener('click', function() {
+            let favs = JSON.parse(localStorage.getItem('meusFavs') || '[]');
+            const favList = document.getElementById('favList');
+            favList.innerHTML = '';
+            if (!favs.length) {
+                favList.innerHTML = '<li style="color:#888;">Você ainda não favoritou nenhum manhwa!</li>';
+            } else {
+                favs.forEach((f, i) => {
+                    let card = Array.from(document.querySelectorAll('.card')).find(card => {
+                        let h3 = card.querySelector('h3');
+                        let title = h3.textContent.replace(/\s+/g, ' ').trim();
+                        return title === f;
+                    });
+                    let imgSrc = card ? card.querySelector('img').src : '';
+                    // Pega o link do capítulo (Solo Leveling e O Retorno do Demônio Louco têm páginas dedicadas)
+                    let link = '#';
+                    if (f.includes('Solo Leveling')) link = 'solo-leveling.html';
+                    else if (f.includes('O Retorno do Demônio Louco')) link = 'demonio-louco.html';
+                    // Se for outros, pode customizar aqui
+                    const li = document.createElement('li');
+                    li.style.display = 'flex';
+                    li.style.alignItems = 'center';
+                    li.style.gap = '12px';
+                    li.style.padding = '8px 0';
+                    li.style.cursor = 'pointer';
+                    li.tabIndex = 0;
+                    li.setAttribute('role', 'link');
+                    li.setAttribute('aria-label', f);
+                    li.addEventListener('click', function() {
+                        if (link !== '#') window.location.href = link;
+                    });
+                    if (imgSrc) {
+                        const img = document.createElement('img');
+                        img.src = imgSrc;
+                        img.alt = f;
+                        img.style.width = '48px';
+                        img.style.height = '68px';
+                        img.style.objectFit = 'cover';
+                        img.style.borderRadius = '6px';
+                        img.style.boxShadow = '0 2px 8px #0002';
+                        li.appendChild(img);
+                    }
+                    const span = document.createElement('span');
+                    span.textContent = f;
+                    span.style.fontWeight = 'bold';
+                    span.style.color = '#fff';
+                    li.appendChild(span);
+                    favList.appendChild(li);
+                });
+            }
+            document.getElementById('favModal').style.display = 'flex';
+        });
+        document.getElementById('closeFavModal').addEventListener('click', function() {
+            document.getElementById('favModal').style.display = 'none';
+        });
+        // Fecha modal ao clicar fora
+        document.getElementById('favModal').addEventListener('click', function(e) {
+            if (e.target === this) this.style.display = 'none';
+        });
+
+        // Ao carregar a página, marca os favoritos salvos
+        let favsSalvos = JSON.parse(localStorage.getItem('meusFavs') || '[]');
+        document.querySelectorAll('.card').forEach(card => {
+            let h3 = card.querySelector('h3');
+            let title = h3.textContent.replace(/\s+/g, ' ').trim();
+            if (favsSalvos.includes(title)) {
+                let btn = card.querySelector('.fav-btn');
+                if (btn) {
+                    btn.classList.add('favorited');
+                    btn.textContent = '★';
+                }
+            }
+        });
+
+        // Mostra/oculta capítulos ao clicar no card
+        const soloCard = document.getElementById('soloLevelingCard');
+        if (soloCard) {
+            soloCard.addEventListener('click', function(e) {
+                // Evita conflito com botão de favorito
+                if (e.target.classList.contains('fav-btn')) return;
+                // Redireciona para a página de capítulos
+                window.location.href = 'solo-leveling.html';
+            });
+        }
+        // Exibe sinopse do O Retorno do Demônio Louco ao clicar no card, igual ao Solo Leveling
+        const demonioCard = Array.from(document.querySelectorAll('.card')).find(card => {
+            const h3 = card.querySelector('h3');
+            return h3 && h3.textContent.trim() === 'O Retorno do Demônio Louco';
+        });
+        if (demonioCard) {
+            demonioCard.addEventListener('click', function(e) {
+                if (e.target.classList.contains('fav-btn')) return;
+                window.location.href = 'demonio-louco.html';
+            });
+        }
+        // Filtro por categoria/gênero
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const categoria = btn.getAttribute('data-category');
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.querySelectorAll('.card').forEach(card => {
+                    if (categoria === 'todos' || card.getAttribute('data-category').includes(categoria)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        // Removido carregamento duplicado do Disqus nos cards
+    });
+    </script>
+</body>
+</html>
