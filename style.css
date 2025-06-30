@@ -87,18 +87,17 @@ section h2 {
 }
 .card {
     background: #23263a;
-    border-radius: 12px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.15);
-    overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px #0004;
+    padding: 1rem;
+    transition: transform 0.18s, box-shadow 0.18s;
     position: relative;
+    overflow: hidden;
 }
 .card:hover {
     transform: translateY(-6px) scale(1.03);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+    box-shadow: 0 6px 24px #0007;
+    border: 1.5px solid #7dcfff;
 }
 .card img {
     width: 100%;
@@ -124,17 +123,30 @@ section h2 {
     position: absolute;
     top: 10px;
     right: 10px;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
+    background: #23263a;
     color: #7dcfff;
+    border: 1px solid #7dcfff;
+    border-radius: 6px;
+    padding: 4px 12px;
+    font-size: 1em;
     cursor: pointer;
     z-index: 2;
-    transition: color 0.2s;
+    transition: background 0.2s, color 0.2s;
 }
 .fav-btn.ativo,
 .fav-btn:hover {
     color: #ffd700;
+}
+.fav-btn.favorited, .fav-btn-header.favorited {
+    background: #7dcfff !important;
+    color: #23263a !important;
+    font-weight: bold;
+    border: none;
+}
+.fav-btn.favorited::after {
+    content: ' ★';
+    color: gold;
+    font-size: 1.1em;
 }
 
 /* Destaque visual para botão de favorito ativo */
@@ -320,6 +332,7 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: auto;
 }
 .close-modal {
     margin-top: 1.5rem;
@@ -336,6 +349,40 @@ footer {
 .close-modal:hover {
     background: #1a1c2b;
     color: #7dcfff;
+}
+.tab-btn {
+    background: linear-gradient(180deg, #23263a 60%, #181824 100%);
+    color: #7dcfff;
+    border: none;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 4px 16px #0006, 0 1.5px 0 #7dcfff inset;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 12px 28px 12px 20px;
+    margin-right: 8px;
+    margin-bottom: -2px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s;
+    outline: none;
+    position: relative;
+}
+.tab-btn.active, .tab-btn:focus {
+    background: linear-gradient(180deg, #7dcfff 80%, #23263a 100%);
+    color: #23263a;
+    box-shadow: 0 8px 32px #7dcfff55, 0 2px 0 #7dcfff inset;
+    transform: translateY(-2px) scale(1.04);
+    z-index: 2;
+}
+.tab-btn:hover {
+    background: linear-gradient(180deg, #4bb3fa 80%, #23263a 100%);
+    color: #fff;
+    box-shadow: 0 8px 32px #4bb3fa55, 0 2px 0 #4bb3fa inset;
+    transform: translateY(-1px) scale(1.03);
+}
+.tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 0.5rem;
 }
 @media (max-width: 800px) {
     .container, .footer-flex {
@@ -378,6 +425,12 @@ footer {
     .filtro-avancado select,
     .filtro-avancado button {
         min-width: 100%;
+    }
+}
+@media (max-width: 600px) {
+    .tab-btn {
+        font-size: 1rem;
+        padding: 10px 10px 10px 10px;
     }
 }
 @media (max-width: 500px) {

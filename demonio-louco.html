@@ -46,8 +46,8 @@
                     <h3>Lista de Capítulos</h3>
                     <ul class="chapter-list">
                         <li><a href="#" class="cap-demonio-link">Capítulo 1</a></li>
-                        <li><a href="#">Capítulo 2</a></li>
-                        <li><a href="#">Capítulo 3</a></li>
+                        <li><a href="#" class="cap-demonio-link">Capítulo 2</a></li>
+                        <li><a href="#" class="cap-demonio-link">Capítulo 3</a></li>
                         <!-- Adicione mais capítulos conforme necessário -->
                     </ul>
                 </section>
@@ -70,45 +70,38 @@
                 document.getElementById('tab-' + this.dataset.tab).style.display = 'block';
             });
         });
-        // Exibe imagens do capítulo 1 ao clicar
-        const capDemonioLink = document.querySelector('.cap-demonio-link');
-        if (capDemonioLink) {
-            capDemonioLink.addEventListener('click', function(e) {
+        // Exibe imagens do capítulo ao clicar em qualquer capítulo
+        document.querySelectorAll('.cap-demonio-link').forEach(link => {
+            link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const modal = document.createElement('div');
                 modal.className = 'modal-manhwa';
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.width = '100vw';
+                modal.style.height = '100vh';
+                modal.style.zIndex = '9999';
+                modal.style.background = 'rgba(0,0,0,0.97)';
+                modal.style.display = 'flex';
+                modal.style.alignItems = 'center';
+                modal.style.justifyContent = 'center';
                 modal.innerHTML = `
-                    <div class=\"modal-bg\"></div>
-                    <div class=\"modal-content\" style=\"max-width:700px; max-height:90vh; overflow-y:auto;\">
-                        <h2 style=\"color:#7dcfff;\">O Retorno do Demônio Louco - Capítulo 1 (PT-BR)</h2>
-                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623080443-1.webp\" alt=\"Página 1\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
-                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623080444-2.webp\" alt=\"Página 2\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
-                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623080445-3.webp\" alt=\"Página 3\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
-                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623081546-4.webp\" alt=\"Página 4\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
-                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623081545-5.webp\" alt=\"Página 5\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
-                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623081547-6.webp\" alt=\"Página 6\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
-                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623083578-7.webp\" alt=\"Página 7\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
-                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623083582-8.webp\" alt=\"Página 8\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
-                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623083581-9.webp\" alt=\"Página 9\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
-                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623085542-10.webp\" alt=\"Página 10\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
-                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623085543-11.webp\" alt=\"Página 11\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
-                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623085541-12.webp\" alt=\"Página 12\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
-                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623088549-13.webp\" alt=\"Página 13\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
-                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623088550-14.webp\" alt=\"Página 14\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
-                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623088548-15.webp\" alt=\"Página 15\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
-                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623092665-16.webp\" alt=\"Página 16\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
-                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623092667-17.webp\" alt=\"Página 17\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
-                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623092666-18.webp\" alt=\"Página 18\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
-                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623097580-19.webp\" alt=\"Página 19\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
-                        <img src=\"https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623097578-20.webp\" alt=\"Página 20\" style=\"max-width:100%;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;\">
-                        <button class=\"close-modal\">Fechar</button>
+                    <div class="modal-bg" style="position:absolute;top:0;left:0;right:0;bottom:0;width:100vw;height:100vh;background:rgba(0,0,0,0.97);"></div>
+                    <div class="modal-content" style="background:#23263a;max-width:100vw;max-height:100vh;width:100vw;height:100vh;overflow-y:auto;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:2rem 0;">
+                        <h2 style="color:#7dcfff;">O Retorno do Demônio Louco - ${this.textContent} (PT-BR)</h2>
+                        <img src="https://cdn.mahoureader.com/series/536/vol/0/chapter/1/1750623080443-1.webp" alt="Página 1" style="max-width:98vw;border-radius:8px;box-shadow:0 2px 12px #0008;margin-bottom:1rem;">
+                        <!-- Adicione as imagens do capítulo correspondente aqui -->
+                        <button class="close-modal" style="margin-top:2rem;">Fechar</button>
                     </div>
                 `;
                 document.body.appendChild(modal);
-                modal.querySelector('.close-modal').onclick = () => modal.remove();
-                modal.querySelector('.modal-bg').onclick = () => modal.remove();
+                // Permite rolar a página pelo teclado e mouse
+                document.body.style.overflow = 'hidden';
+                modal.querySelector('.close-modal').onclick = () => { modal.remove(); document.body.style.overflow = ''; };
+                modal.querySelector('.modal-bg').onclick = () => { modal.remove(); document.body.style.overflow = ''; };
             });
-        }
+        });
         // Disqus config
         if (document.getElementById('disqus_thread')) {
             var disqus_config = function () {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>                                                                                                                                                                                                                                                                                                                                                                                                                                 
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,10 @@
 <body>
     <header>
         <div class="container header-flex">
-            <h1 class="logo"><img src="https://tse2.mm.bing.net/th/id/OIP.wTHrGVya9uR_EpCDuBJrfQHaFQ?pid=Api&P=0&h=180" alt="Logo Meu Manhwa" class="logo-img"> Meu Manhwa</h1>
+            <h1 class="logo">
+                <img src="https://tse2.mm.bing.net/th/id/OIP.wTHrGVya9uR_EpCDuBJrfQHaFQ?pid=Api&P=0&h=180" alt="Logo Meu Manhwa" class="logo-img">
+                Meu Manhwa
+            </h1>
             <nav class="main-nav">
                 <a href="index.html">Início</a>
                 <a href="#explorar">Explorar</a>
@@ -157,13 +160,16 @@
                 btn.classList.toggle('favorited');
                 let card = btn.closest('.card');
                 let h3 = card.querySelector('h3');
-                // Corrige para pegar o título SEMPRE igual ao texto visível (remove links e espaços)
                 let title = h3.textContent.replace(/\s+/g, ' ').trim();
                 let favs = JSON.parse(localStorage.getItem('meusFavs') || '[]');
                 if (btn.classList.contains('favorited')) {
                     if (!favs.includes(title)) favs.push(title);
+                    btn.textContent = '★ Favoritado';
+                    // Aviso visual
+                    showFavToast('Adicionado aos favoritos!');
                 } else {
                     favs = favs.filter(f => f !== title);
+                    btn.textContent = '☆ Favoritar';
                 }
                 localStorage.setItem('meusFavs', JSON.stringify(favs));
             });
@@ -184,11 +190,9 @@
                         return title === f;
                     });
                     let imgSrc = card ? card.querySelector('img').src : '';
-                    // Pega o link do capítulo (Solo Leveling e O Retorno do Demônio Louco têm páginas dedicadas)
                     let link = '#';
                     if (f.includes('Solo Leveling')) link = 'solo-leveling.html';
                     else if (f.includes('O Retorno do Demônio Louco')) link = 'demonio-louco.html';
-                    // Se for outros, pode customizar aqui
                     const li = document.createElement('li');
                     li.style.display = 'flex';
                     li.style.alignItems = 'center';
@@ -217,6 +221,36 @@
                     span.style.fontWeight = 'bold';
                     span.style.color = '#fff';
                     li.appendChild(span);
+                    // Botão de remover favorito
+                    const removeBtn = document.createElement('button');
+                    removeBtn.textContent = 'Remover';
+                    removeBtn.style.marginLeft = '10px';
+                    removeBtn.style.background = '#e74c3c';
+                    removeBtn.style.color = '#fff';
+                    removeBtn.style.border = 'none';
+                    removeBtn.style.borderRadius = '4px';
+                    removeBtn.style.padding = '4px 10px';
+                    removeBtn.style.cursor = 'pointer';
+                    removeBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        let favs = JSON.parse(localStorage.getItem('meusFavs') || '[]');
+                        favs = favs.filter(fav => fav !== f);
+                        localStorage.setItem('meusFavs', JSON.stringify(favs));
+                        li.remove();
+                        // Atualiza botões de favoritos nos cards
+                        document.querySelectorAll('.card').forEach(card => {
+                            let h3 = card.querySelector('h3');
+                            let title = h3.textContent.replace(/\s+/g, ' ').trim();
+                            if (title === f) {
+                                let btn = card.querySelector('.fav-btn');
+                                if (btn) {
+                                    btn.classList.remove('favorited');
+                                    btn.textContent = '☆ Favoritar';
+                                }
+                            }
+                        });
+                    });
+                    li.appendChild(removeBtn);
                     favList.appendChild(li);
                 });
             }
@@ -282,6 +316,24 @@
         });
         // Removido carregamento duplicado do Disqus nos cards
     });
+    // Toast de favorito
+    function showFavToast(msg) {
+        let toast = document.createElement('div');
+        toast.textContent = msg;
+        toast.style.position = 'fixed';
+        toast.style.bottom = '32px';
+        toast.style.left = '50%';
+        toast.style.transform = 'translateX(-50%)';
+        toast.style.background = '#222';
+        toast.style.color = '#fff';
+        toast.style.padding = '12px 28px';
+        toast.style.borderRadius = '8px';
+        toast.style.fontSize = '1.1em';
+        toast.style.boxShadow = '0 2px 12px #0008';
+        toast.style.zIndex = '99999';
+        document.body.appendChild(toast);
+        setTimeout(() => { toast.remove(); }, 1800);
+    }
     </script>
 </body>
 </html>
