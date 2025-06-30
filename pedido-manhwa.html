@@ -143,44 +143,65 @@
             </div>
         </div>
     </footer>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
     <script>
-    // Salva pedidos no localStorage e exibe lista pública
+    // Configuração do Firebase já está no index.html, mas vamos garantir aqui também
+    const firebaseConfig = {
+        apiKey: "AIzaSyBAbIHoT6hbDZsgOmf0WxNpnDFAl9mVyDw",
+        authDomain: "manhwas-c22c1.firebaseapp.com",
+        projectId: "manhwas-c22c1",
+        storageBucket: "manhwas-c22c1.firebasestorage.app",
+        messagingSenderId: "650595567626",
+        appId: "1:650595567626:web:04b31c5ccf472ddb7437f3",
+        measurementId: "G-ER4CL9WJLQ"
+    };
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    const db = firebase.database();
+
+    // Salva pedidos no Firebase e exibe lista pública
     function renderPedidos() {
         const lista = document.getElementById('listaPedidos');
         const titulo = document.getElementById('tituloPedidos');
-        let pedidos = JSON.parse(localStorage.getItem('pedidosManhwa') || '[]');
-        // Atualiza contador
-        titulo.innerHTML = `Pedidos Recentes <span style='font-size:0.85em;color:#e6b800;'>(${pedidos.length})</span>`;
-        if (!pedidos.length) {
-            lista.innerHTML = '<li style="color:#aaa;text-align:center;">Nenhum pedido ainda. Seja o primeiro a sugerir um manhwa!</li>';
-            return;
-        }
-        lista.innerHTML = '';
-        const agora = Date.now();
-        pedidos.slice().reverse().forEach(p => {
-            const li = document.createElement('li');
-            li.style.background = '#23263a';
-            li.style.borderRadius = '8px';
-            li.style.boxShadow = '0 2px 8px #0002';
-            li.style.padding = '14px 16px 10px 16px';
-            li.style.color = '#fff';
-            li.style.position = 'relative';
-            li.style.display = 'flex';
-            li.style.flexDirection = 'column';
-            // Nome do manhwa
-            li.innerHTML = `<div style='display:flex;align-items:center;gap:8px;'>` +
-                `<span style='font-size:1.13em;font-weight:bold;color:#e6b800;'>${p.nome}</span>` +
-                (agora - new Date(p.data).getTime() < 86400000 ? "<span title='Pedido recente' style='color:#4f8cff;font-size:1.1em;'>🆕</span>" : "") +
-                `</div>`;
-            // Detalhes
-            if (p.detalhes) {
-                li.innerHTML += `<div style='font-size:0.99em;color:#b3c6ff;margin:6px 0 0 0;white-space:pre-line;'>${p.detalhes}</div>`;
+        db.ref('pedidosManhwa').once('value', function(snapshot) {
+            const pedidosArr = [];
+            snapshot.forEach(child => pedidosArr.push(child.val()));
+            // Atualiza contador
+            titulo.innerHTML = `Pedidos Recentes <span style='font-size:0.85em;color:#e6b800;'>(${pedidosArr.length})</span>`;
+            if (!pedidosArr.length) {
+                lista.innerHTML = '<li style="color:#aaa;text-align:center;">Nenhum pedido ainda. Seja o primeiro a sugerir um manhwa!</li>';
+                return;
             }
-            // Usuário e data
-            let user = p.user || 'Anônimo';
-            let dataStr = new Date(p.data).toLocaleString('pt-BR');
-            li.innerHTML += `<div style='display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:0.93em;color:#888;'><span>👤 ${user}</span><span>${dataStr}</span></div>`;
-            lista.appendChild(li);
+            lista.innerHTML = '';
+            const agora = Date.now();
+            pedidosArr.sort((a, b) => new Date(b.data) - new Date(a.data));
+            pedidosArr.forEach(p => {
+                const li = document.createElement('li');
+                li.style.background = '#23263a';
+                li.style.borderRadius = '8px';
+                li.style.boxShadow = '0 2px 8px #0002';
+                li.style.padding = '14px 16px 10px 16px';
+                li.style.color = '#fff';
+                li.style.position = 'relative';
+                li.style.display = 'flex';
+                li.style.flexDirection = 'column';
+                // Nome do manhwa
+                li.innerHTML = `<div style='display:flex;align-items:center;gap:8px;'>` +
+                    `<span style='font-size:1.13em;font-weight:bold;color:#e6b800;'>${p.nome}</span>` +
+                    (agora - new Date(p.data).getTime() < 86400000 ? "<span title='Pedido recente' style='color:#4f8cff;font-size:1.1em;'>🆕</span>" : "") +
+                    `</div>`;
+                // Detalhes
+                if (p.detalhes) {
+                    li.innerHTML += `<div style='font-size:0.99em;color:#b3c6ff;margin:6px 0 0 0;white-space:pre-line;'>${p.detalhes}</div>`;
+                }
+                // Usuário e data
+                let user = p.user || 'Anônimo';
+                let dataStr = new Date(p.data).toLocaleString('pt-BR');
+                li.innerHTML += `<div style='display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:0.93em;color:#888;'><span>👤 ${user}</span><span>${dataStr}</span></div>`;
+                lista.appendChild(li);
+            });
         });
     }
     function checkLoginPedido() {
@@ -203,19 +224,22 @@
         const nome = document.getElementById('nomeManhwa').value.trim();
         const detalhes = document.getElementById('detalhesManhwa').value.trim();
         if (!nome) return;
-        let pedidos = JSON.parse(localStorage.getItem('pedidosManhwa') || '[]');
-        pedidos.push({ nome, detalhes, data: new Date().toISOString(), user });
-        localStorage.setItem('pedidosManhwa', JSON.stringify(pedidos));
-        document.getElementById('pedidoForm').reset();
-        document.getElementById('pedidoSucesso').style.display = 'block';
-        renderPedidos();
-        setTimeout(() => { document.getElementById('pedidoSucesso').style.display = 'none'; }, 2500);
+        const data = new Date().toISOString();
+        db.ref('pedidosManhwa').push({ nome, detalhes, data, user }, function(err) {
+            if (!err) {
+                document.getElementById('pedidoForm').reset();
+                document.getElementById('pedidoSucesso').style.display = 'block';
+                renderPedidos();
+                setTimeout(() => { document.getElementById('pedidoSucesso').style.display = 'none'; }, 2500);
+            }
+        });
     };
     renderPedidos();
     checkLoginPedido();
     window.addEventListener('storage', checkLoginPedido);
-    // Atualiza ao voltar do login/registro
     setInterval(checkLoginPedido, 1000);
+    // Atualização em tempo real
+    db.ref('pedidosManhwa').on('value', renderPedidos);
     </script>
 </body>
 </html>
