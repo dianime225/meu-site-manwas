@@ -15,9 +15,6 @@
             </h1>
             <nav class="main-nav" style="display:flex;gap:18px;align-items:center;">
                 <a href="index.html" style="font-weight:bold;font-size:1.08em;padding:7px 18px;border-radius:18px;background:#fff1;border:1.5px solid #4f8cff;color:#4f8cff;transition:background 0.2s, color 0.2s;">Início</a>
-                <a href="pedido-manhwa.html" style="font-weight:bold;color:#23263a;background:linear-gradient(90deg,#e6b800 60%,#4f8cff 100%);padding:7px 22px;border-radius:18px;box-shadow:0 2px 12px #0003;font-size:1.08em;border:none;transition:background 0.2s, color 0.2s, transform 0.1s;outline:none;display:inline-block;letter-spacing:0.5px;position:relative;z-index:1;">
-  Pedir Manhwa
-</a>
                 <a href="https://discord.com/" target="_blank" style="background:#5865F2;color:#fff;padding:7px 18px;border-radius:18px;font-weight:bold;">Discord</a>
             </nav>
             <div class="user-auth">
@@ -170,6 +167,36 @@
       const analytics = firebase.analytics();
       // Se for usar o Realtime Database:
       const database = firebase.database();
+
+      // --- LISTENER DE PEDIDOS EM TEMPO REAL ---
+      function renderPedidos(pedidos) {
+        const container = document.getElementById('pedidosContainer');
+        if (!container) return;
+        let pedidosArr = [];
+        if (pedidos && typeof pedidos === 'object') {
+          pedidosArr = Object.values(pedidos);
+        }
+        if (!pedidosArr.length) {
+          container.innerHTML = '<div style="color:#888;">Nenhum pedido ainda. Seja o primeiro a pedir um manhwa!</div>';
+          return;
+        }
+        // Ordena por data decrescente
+        pedidosArr.sort((a, b) => new Date(b.data) - new Date(a.data));
+        let html = '<ul style="list-style:none;padding:0;">';
+        pedidosArr.forEach((pedido, idx) => {
+          html += `<li style="background:#fff2;padding:10px 16px;margin-bottom:10px;border-radius:8px;box-shadow:0 2px 8px #0001;">
+            <strong style="color:#4f8cff;">${pedido.nome || pedido.nomeManhwa || 'Sem nome'}</strong>
+            <span style="color:#888;font-size:0.98em;"> por ${pedido.user || pedido.usuario || 'Anônimo'}</span>
+            <span style="float:right;color:#e6b800;font-size:0.95em;">${pedido.data ? new Date(pedido.data).toLocaleString('pt-BR') : (pedido.timestamp ? new Date(pedido.timestamp).toLocaleString('pt-BR') : '')}</span>
+            ${pedido.detalhes ? `<div style='font-size:0.99em;color:#b3c6ff;margin-top:6px;'>${pedido.detalhes}</div>` : ''}
+          </li>`;
+        });
+        html += '</ul>';
+        container.innerHTML = html;
+      }
+      database.ref('pedidosManhwa').on('value', function(snapshot) {
+        renderPedidos(snapshot.val());
+      });
     </script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
